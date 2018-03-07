@@ -2,10 +2,10 @@ def call(parameters = [:]) {
 
   def stepName = 'generateMtaDescriptor'
 
-  Set parameterKeys = ['srcJson']
+  Set parameterKeys = ['srcJson' , 'mtaFile']
     
   handlePipelineStepErrors (stepName: stepName, stepParameters: parameters) {
-      def data = readJSON file: 'src/package.json'
+      def data = readJSON file: 'parameters.srcJson'
 
       parsedName = data.name
       parsedVersion = data.version
@@ -17,6 +17,6 @@ def call(parameters = [:]) {
       mtaData['modules'][0]['name'] = "$applicationName"
       mtaData['modules'][0]['parameters']['version'] = "$parsedVersion-\${timestamp}"
 
-      writeYaml file: 'src/mta.yaml', data: mtaData
+      writeYaml file: 'parameters.mtaFile', data: mtaData
     }
 }
