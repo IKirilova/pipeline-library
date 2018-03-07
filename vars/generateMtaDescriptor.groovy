@@ -5,7 +5,10 @@ def call(parameters = [:]) {
   Set parameterKeys = ['srcJson' , 'mtaFile']
     
   handlePipelineStepErrors (stepName: stepName, stepParameters: parameters) {
-      def data = readJSON file: 'parameters.srcJson'
+      File sourceJson = parameters.srcJson
+      File mtaFile = parameters.mtaFile
+      
+      def data = readJSON file: sourceJson
 
       parsedName = data.name
       parsedVersion = data.version
@@ -17,6 +20,6 @@ def call(parameters = [:]) {
       mtaData['modules'][0]['name'] = "$applicationName"
       mtaData['modules'][0]['parameters']['version'] = "$parsedVersion-\${timestamp}"
 
-      writeYaml file: 'parameters.mtaFile', data: mtaData
+      writeYaml file: mtaFile, data: mtaData
     }
 }
