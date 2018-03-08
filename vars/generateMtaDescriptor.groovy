@@ -12,7 +12,7 @@ def call(parameters = [:]) {
       mtaData['ID'] = data.name
       mtaData['version'] = data.version
       mtaData['modules'][0]['name'] = params.applicationName
-      mtaData['modules'][0]['parameters']['version'] = "$parsedVersion-\${timestamp}"
+      mtaData['modules'][0]['parameters']['version'] = "${data.version}-\${timestamp}"
 
       writeYaml file: parameters.targetFile, data: mtaData
     }
