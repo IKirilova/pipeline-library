@@ -11,7 +11,7 @@ def call(parameters = [:]) {
       mtaData  = readYaml text: libraryResource('mta.yml')
       mtaData['ID'] = data.name
       mtaData['version'] = data.version
-      mtaData['modules'][0]['name'] = =params.applicationName
+      mtaData['modules'][0]['name'] = params.applicationName
       mtaData['modules'][0]['parameters']['version'] = "$parsedVersion-\${timestamp}"
 
       writeYaml file: parameters.targetFile, data: mtaData
